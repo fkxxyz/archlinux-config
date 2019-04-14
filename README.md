@@ -1,3 +1,6 @@
+# 此仓库为我大多数软件的 archlinux 基本配置
+
+## 以下为基本配置
 
 
 ## 设置键盘布局
@@ -76,9 +79,11 @@ usermod -G wheel ???
 ```
 
 ## 配置软件源
-参见：
-[Arch Linux 软件仓库镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/archlinux/)
-[ArchlinuxCN 镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/archlinuxcn/)
+参见：  
+[Arch Linux 软件仓库镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/archlinux/)  
+[ArchlinuxCN 镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/archlinuxcn/)  
+
+
 更新软件数据库
 ```
 pacman -Syy
@@ -87,4 +92,7 @@ pacman -Syy
 ```
 pacman -Syu
 ```
+
+开启别的仓库只需要取消注释 /etc/pacman.conf 相应的项
+
 
