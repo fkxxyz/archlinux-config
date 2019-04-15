@@ -28,9 +28,15 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 ```
 hwclock -s -l
 ```
+
 将硬件时间设置为系统的UTC时间（与mac系统默认相同）
 ```
 hwclock -s -u
+```
+
+启用 ntp 服务，获取网络时间并设置为当前系统时间
+```
+timedatectl set-ntp true
 ```
 
 生成时间偏差（/etc/adjtime）
@@ -49,9 +55,9 @@ echo LANG=en_US.UTF-8 >/etc/locale.conf
 
 ## 修改主机名
 ```
-echo ??? >/etc/hostname
+hostnamectl set-hostname ???
 ```
-在 /etc/hosts 里添加
+在 /etc/hosts 里添加（设置网络主机名）
 ```
 127.0.0.1          localhost
 ::1                localhost

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+main(){
+
+	rm -f ~/.idm/*.spl 2>/dev/null
+	rm -f ~/.idm/uex/*.spl 2>/dev/null
+	rm -f /tmp/*.spl 2>/dev/null
+
+	/opt/uex/bin/uex "$@" &
+	pid=$!
+
+	while true; do
+		sleep 0.1
+		w="$(wmctrl -lp | grep $pid)"
+		id="$(echo "$w" | grep '试用期结束' | cut -d' ' -f1)"
+		[ "$id" ] && wmctrl -ic "$id" && break
+		[ "$w" -a "$(echo "$w" | wc -l)" == 1 ] && break
+		[ -d /proc/$pid ] || break
+	done
+  wait
+}
+
+main "$@"
+
+
