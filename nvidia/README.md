@@ -50,14 +50,30 @@ cat /proc/acpi/bbswitch
 安装配置双显卡切换器
 ```
 pacman -S bumblebee
-sudo usermod -a -G bumblebee
 ```
+
+将自己用户加入到 bumblebee 组（注销重新登录后生效）
+```
+sudo usermod -a -G bumblebee <用户名>
+```
+
 修改 /etc/bumblebee/bumblebee.conf :
 ```
 Driver=nvidia
 [driver-nvidia]
 PMMethod=bbswitch
 ```
+
+启动服务
+```
+systemctl start bumblebeed
+```
+
+设置服务自动启动
+```
+systemctl enable bumblebeed
+```
+
 
 测试英伟达显卡驱动（不加optirun为测试集显，终端输出了显卡型号，以后用optirun运行程序则表示使用英伟达显卡）
 ```
