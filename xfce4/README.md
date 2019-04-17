@@ -29,6 +29,12 @@ startxfce4
 进入设置，窗口管理器，选择一个主题  
 进入设置，外观，选择一个主题  
 
-可以自行下载更多主题，推荐主题：  
+可以自行下载更多主题，用pacman或yaourt安装即可，推荐主题：  
+[参见我所有软件列表](https://github.com/fkxxyz/archlinux-config/blob/master/spacman/spacman.conf/#L256)  
 
+## 快捷键设置
+进入设置，键盘，应用程序快捷键，自行设置喜欢的全局快捷键。
+
+## 桌面背景和图标设置
+右键桌面，桌面设置，选择壁纸，可以选择更多壁纸
 
