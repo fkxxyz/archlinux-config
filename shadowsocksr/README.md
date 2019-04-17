@@ -49,11 +49,13 @@ systemctl start privoxy
 ```
 编写脚本方便使用
 新建 /usr/local/bin/prun 写入：
+```
 #!/bin/bash
 export http_proxy=http://127.0.0.1:8118/
 export https_proxy=https://127.0.0.1:8118/
 export ftp_proxy=ftp://127.0.0.1:8118/
 exec $*
+```
 添加可执行权限
 chmod +x /usr/local/bin/prun
 用法： 需要走代理的命令前加 prun 即可
