@@ -11,11 +11,22 @@ xfconf-query -c xfce4-session -p /general/LockCommand -s "light-locker-command -
 ```
 
 设置为所有用户的 xfce4 默认锁屏
-修改 /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml ，将 general 属性中添加一个属性 LockCommand ，如下：
 ```
-  <property name="general" type="empty">
-    <property name="FailsafeSessionName" type="string" value="Failsafe"/>
-    <property name="LockCommand" type="string" value="light-locker-command -l"/>
-  </property>
+sed '/name="sessions"/a\ \ \ \ <property name="LockCommand" type="string" value="light-locker-command -l"/>' /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
+```
+但重装 xfce4-session 会覆盖此修改的文件，为了使重装 xfce4-session 也仍然有效，把这条命令写入安装的 hook :
+新建 /etc/pacman.d/hooks/light-locker-xfce4-session.hook ，写入：
+```
+[Trigger]
+Type = File
+Operation = Install
+Operation = Upgrade
+Target = etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
+
+[Action]
+Description = Set light-locker as the default locker...
+When = PostTransaction
+Exec = /usr/bin/sed -i '/name="sessions"/a\ \ \ \ <property name="LockCommand" type="string" value="light-locker-command -l"/>' /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-session.xml
+
 ```
 

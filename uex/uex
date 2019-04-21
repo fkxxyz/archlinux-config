@@ -4,21 +4,28 @@
 main(){
 
 	rm -f ~/.idm/*.spl 2>/dev/null
-	rm -f ~/.idm/uex/*.spl 2>/dev/null
+	rm -f ~/.idm/uex/alt.conf 2>/dev/null
 	rm -f /tmp/*.spl 2>/dev/null
 
-	/opt/uex/bin/uex "$@" &
-	pid=$!
+	export http_proxy="http://127.0.0.1:0"
+	export https_proxy="http://127.0.0.1:0"
 
+	/opt/uex/bin/uex "$@" &
+	local pid=$!
+
+	local i=0
 	while true; do
-		sleep 0.1
-		w="$(wmctrl -lp | grep $pid)"
-		id="$(echo "$w" | grep '试用期结束' | cut -d' ' -f1)"
+		sleep 0.02
+		local w="$(wmctrl -lp | grep $pid)"
+		local id="$(echo "$w" | grep '试用期结束' | cut -d' ' -f1)"
 		[ "$id" ] && wmctrl -ic "$id" && break
-		[ "$w" -a "$(echo "$w" | wc -l)" == 1 ] && break
+		if [ "$w" -a "$(echo "$w" | wc -l)" == 1 ]; then
+			i=$((i+1))
+			[ $i -gt 50 ] && break;
+		fi
 		[ -d /proc/$pid ] || break
 	done
-  wait
+	wait
 }
 
 main "$@"
