@@ -47,6 +47,10 @@ listen-address localhost:8118
 ```
 systemctl start privoxy
 ```
+设置 shadowsocksr 自动启动
+```
+systemctl enable privoxy
+```
 编写脚本方便使用
 新建 /usr/local/bin/prun 写入：
 ```
@@ -57,7 +61,9 @@ export ftp_proxy=ftp://127.0.0.1:8118/
 exec $*
 ```
 添加可执行权限
+```
 chmod +x /usr/local/bin/prun
+```
 用法： 需要走代理的命令前加 prun 即可
 ```
 prun curl ip.sb
