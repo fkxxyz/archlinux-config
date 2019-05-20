@@ -34,6 +34,7 @@ hwclock -s -l
 ```
 
 将硬件时间设置为系统的UTC时间（与mac系统默认相同）
+
 ```
 hwclock -s -u
 ```

@@ -2,6 +2,7 @@
 
 添加颜色配置（修改系统默认）
 修改 /etc/skel/.bashrc，添加内容：
+
 ```
 use_colors=1
 if [ "${use_colors}" ]; then
