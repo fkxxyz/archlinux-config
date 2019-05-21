@@ -53,7 +53,7 @@ wget https://github.com/Winetricks/winetricks/archive/master.zip
 unzip master.zip
 
 # 进入仓库目录
-cd winetricks-mastwinetricks --helper
+cd winetricks-master
 
 # 安装到系统
 sudo make install
