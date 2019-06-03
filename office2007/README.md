@@ -46,6 +46,9 @@ Usage: wine PROGRAM [ARGUMENTS...]   Run the specified program
 对于其他发行版，可以手动下载安装（以下步骤若是执行出错，提示缺少什么就装什么，如 wget 命令未找到，就用包管理器安装 wget）
 
 ```
+# 安装依赖的组建
+sudo apt-get install cabextract
+
 # 下载仓库
 wget https://github.com/Winetricks/winetricks/archive/master.zip
 

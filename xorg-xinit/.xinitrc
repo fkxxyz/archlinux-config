@@ -2,10 +2,14 @@
 [ -f ~/.xprofile ] && . ~/.xprofile
 
 # deamon process
-cp -f /usr/bin/sleep /tmp/xinitrc_sleep_deamon_$USER
-/tmp/xinitrc_sleep_deamon_$USER 3650000d &
+mkdir -p /tmp/xinitrc_sleep_deamon_$USER
+cp -f /usr/bin/sleep /tmp/xinitrc_sleep_deamon_$USER/xinitrc_sleep_deamon_$USER
+/tmp/xinitrc_sleep_deamon_$USER/xinitrc_sleep_deamon_$USER 3650000d &
 main_pid=$!
-echo $main_pid > /tmp/xinitrc_sleep_deamon_$USER.pid
+echo $main_pid > /tmp/xinitrc_sleep_deamon_$USER/pid
+export > /tmp/xinitrc_sleep_deamon_$USER/env
+echo 'exec "$@"' >> /tmp/xinitrc_sleep_deamon_$USER/env
+chmod +x /tmp/xinitrc_sleep_deamon_$USER/env
 
 # window manager
 compiz &
@@ -18,7 +22,7 @@ xfce4-panel &
 
 if [ -d /etc/xdg/autostart ] ; then
  for f in /etc/xdg/autostart/*.desktop ; do
-  exo-open "$f"
+  exo-open "$f" &
  done
  unset f
 fi
@@ -35,5 +39,4 @@ fi
 
 wait $main_pid
 
-autorun.sh stop
 
