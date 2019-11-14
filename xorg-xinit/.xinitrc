@@ -14,11 +14,14 @@ chmod +x /tmp/xinitrc_sleep_deamon_$USER/env
 # window manager
 compiz &
 
+# panel
+lxpanel &
+
+# desktop
+pcmanfm --desktop &
+
 # polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-
-# panel
-xfce4-panel &
 
 if [ -d /etc/xdg/autostart ] ; then
  for f in /etc/xdg/autostart/*.desktop ; do
@@ -27,12 +30,11 @@ if [ -d /etc/xdg/autostart ] ; then
  unset f
 fi
 
-# desktop
-caja --force-desktop -n &
+#caja --force-desktop -n &
 
 if [ -d ~/.config/autostart ] ; then
  for f in ~/.config/autostart/*.desktop ; do
-  [ -x "$f" ] && exo-open "$f"
+  [ -x "$f" ] && exo-open "$f" &
  done
  unset f
 fi

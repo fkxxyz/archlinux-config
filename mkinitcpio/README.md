@@ -36,12 +36,47 @@ mkinitcpio -p linux-o
 Type = File
 Operation = Install
 Operation = Upgrade
-Target = boot/vmlinuz-linux
+Target = usr/lib/modules/*/vmlinuz
 Target = usr/lib/initcpio/*
 
 [Action]
 Description = Updating linux-o initcpios...
 When = PostTransaction
-Exec = /usr/bin/mkinitcpio -p linux-o
-
+Exec = /etc/pacman.d/scripts/mkinitcpio-install-o
+NeedsTargets
 ```
+
+新建 /etc/pacman.d/scripts/mkinitcpio-install-o 写入
+
+ ```shell
+#!/bin/bash -e
+
+args=()
+all=0
+
+while read -r line; do
+    if [[ $line != */vmlinuz ]]; then
+        # triggers when it's a change to usr/lib/initcpio/*
+        all=1
+        continue
+    fi
+
+    if ! read -r pkgbase > /dev/null 2>&1 < "${line%/vmlinuz}/pkgbase"; then
+        # if the kernel has no pkgbase, we skip it
+        continue
+    fi
+
+    # compound args for each kernel
+    args+=(-p "${pkgbase}-o")
+done
+
+if (( all )) && compgen -G /etc/mkinitcpio.d/"*.preset" > /dev/null; then
+    # change to use all presets
+    args=(-P)
+fi
+
+if (( ${#args[@]} )); then
+    mkinitcpio "${args[@]}"
+fi
+ ```
+
