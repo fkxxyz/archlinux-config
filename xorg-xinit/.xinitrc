@@ -11,14 +11,14 @@ export > /tmp/xinitrc_sleep_deamon_$USER/env
 echo 'exec "$@"' >> /tmp/xinitrc_sleep_deamon_$USER/env
 chmod +x /tmp/xinitrc_sleep_deamon_$USER/env
 
+# wallpaper
+~/.fehbg &
+
 # window manager
 compiz &
 
-# panel
-lxpanel &
-
-# desktop
-pcmanfm --desktop &
+# nodify
+/usr/lib/xfce4/notifyd/xfce4-notifyd &
 
 # polkit
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
@@ -30,7 +30,8 @@ if [ -d /etc/xdg/autostart ] ; then
  unset f
 fi
 
-#caja --force-desktop -n &
+# panel
+xfce4-panel &
 
 if [ -d ~/.config/autostart ] ; then
  for f in ~/.config/autostart/*.desktop ; do
