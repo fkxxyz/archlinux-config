@@ -1,4 +1,4 @@
-# linux 发行版下用 wine 安装office2007的教程
+# 任意 linux 发行版下用 wine 安装 office2007 的教程
 
 ## 下载 office2007 的官方 iso 光盘镜像
 个人推荐亲测可用的 office2007 镜像 http://www.songyongzhi.com/Office2007.html
